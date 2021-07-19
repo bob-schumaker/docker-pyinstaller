@@ -10,6 +10,7 @@ set -e
 # Useful for CI pipiles which use docker for their build steps
 # and don't allow that much flexibility to mount volumes
 WORKDIR=${SRCDIR:-/src}
+: "${SPECFILE:="*.spec"}"
 
 #
 # In case the user specified a custom URL for PYPI, then use
@@ -31,6 +32,7 @@ fi
 
 cd $WORKDIR
 
+pip install -U pip setuptools wheel
 if [ -f requirements.txt ]; then
     pip install -r requirements.txt
 fi # [ -f requirements.txt ]
@@ -38,7 +40,7 @@ fi # [ -f requirements.txt ]
 echo "$@"
 
 if [[ "$@" == "" ]]; then
-    pyinstaller --clean -y --dist ./dist/windows --workpath /tmp *.spec
+    pyinstaller --clean -y --dist ./dist/windows --workpath /tmp $SPECFILE
     chown -R --reference=. ./dist/windows
 else
     sh -c "$@"
