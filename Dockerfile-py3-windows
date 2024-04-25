@@ -4,10 +4,7 @@ LABEL maintainer="f.batonogov@yandex.ru"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ARG WINE_VERSION=winehq-devel
-
-ARG PYTHON_VERSION=3.13.0
-ARG PYINSTALLER_VERSION=6.11.0
+ARG WINE_VERSION=winehq-stable
 
 # we need wine for this all to work, so we'll use the PPA
 RUN set -x \
@@ -48,9 +45,11 @@ ENV PYPI_INDEX_URL=https://pypi.python.org/simple
 
 # install python in wine, using the msi packages to install, extracting
 # the files directly, since installing isn't running correctly.
+ARG PYTHON_VERSION=3.11.9
+
 RUN set -x \
     && winetricks win10 \
-    && for msifile in `echo core dev exe lib path pip tcltk`; do \
+    && for msifile in `echo core dev exe lib path pip tcltk tools`; do \
         wget -nv "https://www.python.org/ftp/python/$PYTHON_VERSION/amd64/${msifile}.msi"; \
         wine msiexec /i "${msifile}.msi" /qb TARGETDIR=C:/Python3; \
         rm ${msifile}.msi; \
@@ -65,8 +64,8 @@ RUN set -x \
     && echo 'ftype PythonScript=c:\Python3\python.exe "%1" %*' | wine cmd \
     && while pgrep wineserver >/dev/null; do echo "Waiting for wineserver"; sleep 1; done \
     && chmod +x /usr/bin/python /usr/bin/easy_install /usr/bin/pip /usr/bin/pyinstaller /usr/bin/pyupdater \
-    && pip config set global.progress_bar off \
-    && (pip install -U pip setuptools wheel || true) \
+    && /usr/bin/pip config set global.progress_bar off \
+    && (/usr/bin/pip install -U pip setuptools wheel || true) \
     && rm -rf /tmp/.wine-*
 
 ENV W_DRIVE_C=/wine/drive_c
@@ -86,7 +85,9 @@ RUN set -x \
     && cp "$W_TMP"/*.dll "$W_SYSTEM64_DLLS"/
 
 # Include some support to build Windows installers
-RUN apt install -qy msitools wixl
+RUN apt-get install -qy msitools wixl
+
+ARG PYINSTALLER_VERSION=6.6.0
 
 # install pyinstaller
 RUN /usr/bin/pip install --no-cache-dir pyinstaller==$PYINSTALLER_VERSION
