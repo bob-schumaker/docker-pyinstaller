@@ -24,7 +24,12 @@ RUN set -x \
     && apt install --no-install-recommends -qfy \
         $WINE_VERSION \
         winbind  \
-        cabextract \
+        cabextract
+
+# Include some support to build Windows installers
+RUN set -x && apt-get update -qy && apt-get install -qy msitools wixl
+
+RUN set -x \
     && apt clean \
     && rm -rf \
         /var/lib/apt/lists/* \
@@ -45,7 +50,7 @@ ENV PYPI_INDEX_URL=https://pypi.python.org/simple
 
 # install python in wine, using the msi packages to install, extracting
 # the files directly, since installing isn't running correctly.
-ARG PYTHON_VERSION=3.11.9
+ARG PYTHON_VERSION=3.12.5
 
 RUN set -x \
     && winetricks win10 \
@@ -83,9 +88,6 @@ RUN set -x \
     && cd "$W_TMP" \
     && rename 's/_/\-/g' *.dll \
     && cp "$W_TMP"/*.dll "$W_SYSTEM64_DLLS"/
-
-# Include some support to build Windows installers
-RUN apt-get install -qy msitools wixl
 
 ARG PYINSTALLER_VERSION=6.6.0
 
