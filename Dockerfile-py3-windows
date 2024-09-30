@@ -1,12 +1,8 @@
 FROM ubuntu:24.04
-
 LABEL maintainer="f.batonogov@yandex.ru"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-ARG WINE_VERSION=winehq-stable
-
-# we need wine for this all to work, so we'll use the PPA
 RUN set -x \
     && dpkg --add-architecture i386 \
     && apt update -qy \
@@ -16,18 +12,26 @@ RUN set -x \
         software-properties-common \
         wget \
         gpg-agent \
-        rename \
+        rename
+
+# we need wine for this all to work, so we'll use the PPA
+ARG WINE_VERSION=winehq-stable
+RUN set -x \ 
     && mkdir -pm755 /etc/apt/keyrings \
     && wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key \
     && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/noble/winehq-noble.sources \
+    && wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/ubuntu/dists/jammy/winehq-jammy.sources \
     && apt update -qy \
     && apt install --no-install-recommends -qfy \
-        $WINE_VERSION \
-        winbind  \
+        winbind \
         cabextract
 
+RUN set -x \
+        && apt install --no-install-recommends -qfy \
+        $WINE_VERSION
+
 # Include some support to build Windows installers
-RUN set -x && apt-get update -qy && apt-get install -qy msitools wixl
+RUN set -x && apt update -qy && apt install -qy msitools wixl
 
 RUN set -x \
     && apt clean \
@@ -50,14 +54,14 @@ ENV PYPI_INDEX_URL=https://pypi.python.org/simple
 
 # install python in wine, using the msi packages to install, extracting
 # the files directly, since installing isn't running correctly.
-ARG PYTHON_VERSION=3.12.5
+ARG PYTHON_VERSION=3.12.6
 
 RUN set -x \
     && winetricks win10 \
     && for msifile in `echo core dev exe lib path pip tcltk tools`; do \
         wget -nv "https://www.python.org/ftp/python/$PYTHON_VERSION/amd64/${msifile}.msi"; \
         wine msiexec /i "${msifile}.msi" /qb TARGETDIR=C:/Python3; \
-        rm ${msifile}.msi; \
+        rm -f ${msifile}.msi; \
     done \
     && cd /wine/drive_c/Python3 \
     && echo 'wine '\''C:\Python3\python.exe'\'' "$@"' > /usr/bin/python \
@@ -89,7 +93,7 @@ RUN set -x \
     && rename 's/_/\-/g' *.dll \
     && cp "$W_TMP"/*.dll "$W_SYSTEM64_DLLS"/
 
-ARG PYINSTALLER_VERSION=6.6.0
+ARG PYINSTALLER_VERSION=6.10.0
 
 # install pyinstaller
 RUN /usr/bin/pip install --no-cache-dir pyinstaller==$PYINSTALLER_VERSION
