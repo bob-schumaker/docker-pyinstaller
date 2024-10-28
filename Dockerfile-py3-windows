@@ -54,7 +54,7 @@ ENV PYPI_INDEX_URL=https://pypi.python.org/simple
 
 # install python in wine, using the msi packages to install, extracting
 # the files directly, since installing isn't running correctly.
-ARG PYTHON_VERSION=3.12.6
+ARG PYTHON_VERSION=3.12.7
 
 RUN set -x \
     && winetricks win10 \
@@ -93,7 +93,7 @@ RUN set -x \
     && rename 's/_/\-/g' *.dll \
     && cp "$W_TMP"/*.dll "$W_SYSTEM64_DLLS"/
 
-ARG PYINSTALLER_VERSION=6.10.0
+ARG PYINSTALLER_VERSION=6.11.0
 
 # install pyinstaller
 RUN /usr/bin/pip install --no-cache-dir pyinstaller==$PYINSTALLER_VERSION
