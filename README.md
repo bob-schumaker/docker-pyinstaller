@@ -345,4 +345,6 @@ First release, works.
  </picture>
 </a>
 
-![Star Growth Chart]](https://starchart.cc/batonogov/docker-pyinstaller.svg)
+## Stars Over Time
+
+<img src="https://starchart.cc/batonogov/docker-pyinstaller.svg" alt="Stars Over Time" />
