@@ -348,3 +348,13 @@ First release, works.
 ## Stars Over Time
 
 <img src="https://starchart.cc/batonogov/docker-pyinstaller.svg" alt="Stars Over Time" />
+
+## Repository Stats
+
+<img src="https://github-readme-stats.vercel.app/api?username=batonogov&repo=docker-pyinstaller&show_icons=true&theme=radical" alt="Repository Stats" />
+
+## Detailed Repository Metrics
+
+<img src="https://metrics.lecoq.io/batonogov?template=classic&repositories=docker-pyinstaller&config.timezone=Europe%2FMoscow" alt="Detailed Repository Metrics" />
+
+
