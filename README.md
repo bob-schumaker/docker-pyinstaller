@@ -353,8 +353,18 @@ First release, works.
 
 <img src="https://github-readme-stats.vercel.app/api?username=batonogov&repo=docker-pyinstaller&show_icons=true&theme=radical" alt="Repository Stats" />
 
-## Detailed Repository Metrics
+## Development Stats
 
-<img src="https://metrics.lecoq.io/batonogov?template=classic&repositories=docker-pyinstaller&config.timezone=Europe%2FMoscow" alt="Detailed Repository Metrics" />
+<img src="https://github-readme-stats.vercel.app/api/wakatime?username=batonogov&theme=dark&layout=compact" alt="WakaTime Stats" />
 
+## Visitors Count
 
+<img src="https://visitor-badge.laobi.icu/badge?page_id=batonogov.docker-pyinstaller" alt="Visitors Count" />
+
+## Contribution Graph
+
+<img src="https://github-readme-activity-graph.vercel.app/graph?username=batonogov&theme=github" alt="Contribution Graph" />
+
+## Dependabot Alerts
+
+![Dependabot](https://img.shields.io/github/dependency-update/batonogov/docker-pyinstaller?style=flat-square)
