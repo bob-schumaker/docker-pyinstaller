@@ -1,3 +1,10 @@
+# docker-pyinstaller
+
+![GitHub stars](https://img.shields.io/github/stars/batonogov/docker-pyinstaller?style=flat-square)
+![GitHub forks](https://img.shields.io/github/forks/batonogov/docker-pyinstaller?style=flat-square)
+![GitHub issues](https://img.shields.io/github/issues/batonogov/docker-pyinstaller?style=flat-square)
+![GitHub license](https://img.shields.io/github/license/batonogov/docker-pyinstaller?style=flat-square)
+
 # PyInstaller Docker Images
 
 **batonogov/pyinstaller-linux** and **batonogov/pyinstaller-windows**
@@ -338,16 +345,3 @@ First release, works.
  </picture>
 </a>
 
-# docker-pyinstaller
-
-![GitHub stars](https://img.shields.io/github/stars/batonogov/docker-pyinstaller?style=flat-square)
-![GitHub forks](https://img.shields.io/github/forks/batonogov/docker-pyinstaller?style=flat-square)
-![GitHub issues](https://img.shields.io/github/issues/batonogov/docker-pyinstaller?style=flat-square)
-![GitHub license](https://img.shields.io/github/license/batonogov/docker-pyinstaller?style=flat-square)
-
-Этот репозиторий содержит Docker-образ для сборки Python-скриптов с помощью PyInstaller.
-
-
-## License
-
-MIT
