@@ -345,3 +345,4 @@ First release, works.
  </picture>
 </a>
 
+![Star Growth Chart]](https://starchart.cc/batonogov/docker-pyinstaller.svg)
